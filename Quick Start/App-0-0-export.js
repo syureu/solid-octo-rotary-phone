@@ -142,3 +142,155 @@ export { myFunction as "my-function" };
 /*
 Re-exporting / Aggregating
 
+A module can also "relay" values exported from other modules without the hassle of writing two separate import/export statements.
+This is often useful when creating a single module concentrating various exports from various modules (usually called a "barrel module").
+
+This can be achieved with the "export from" syntax:
+*/
+export { default as function1, function2 } from "bar.js";
+/*
+Which is comparable to a combination of import and export, except that function1 and function2 do not become available inside the current module:
+> 무슨 의미인지 이해 못함
+*/
+import { default as function1, function2 } from "bar.js";
+export { function1, function2 };
+/*
+Most of the "import from" syntaxes have "export from" counterparts.
+*/
+export { x } from "mod";
+export { x as v } from "mod";
+export * as ns from "mod";
+/*
+There is also export * from "mod", although there's no import * from "mod".
+This re-exports all named exports from mod as the named exports of the current module,
+but the default export of mod is not re-exported.
+If there are two wildcard exports statements that implicitly re-export the same name, neither one is re-exported.
+*/
+// -- mod1.js --
+export const a = 1;
+
+// -- mod2.js --
+export const a = 3;
+
+// -- barrel.js --
+export * from "./mod1.js";
+export * from "./mod2.js";
+
+// -- main.js --
+import * as ns from "./barrel.js";
+console.log(ns.a); // undefined
+/*
+Attempting to import the duplicate name directly will throw an error.
+*/
+import { a } from "./barrel.js";
+// SyntaxError: The requested module './barrel.js' contains conflicting star exports for name 'a'
+/*
+The following is syntactically invalid despite its import equivalent:
+*/
+export DefaultExport from "bar.js"; // Invalid
+/*
+> 테스트 해보니
+export {DefaultExport} from "bar.js";
+export * from "bar.js";
+등은 가능함
+
+The correct way of doing this is to rename the export:
+*/
+export { default as DefaultExport } from "bar.js";
+/*
+The "export from" syntax allows the as token to be omitted, which makes the default export still re-exported as default export.
+*/
+export { default, function2 } from "bar.js";
+/*
+Examples
+
+Using named exports
+
+In a module my-module.js, we could include the following code:
+*/
+// module "my-module.js"
+function cube(x) {
+    return x * x * x;
+}
+  
+const foo = Math.PI + Math.SQRT2;
+
+const graph = {
+    options: {
+        color: "white",
+        thickness: "2px",
+    },
+    draw() {
+        console.log("From graph draw function");
+    },
+};
+
+export { cube, foo, graph };
+/*
+Then in the top-level module included in your HTML page, we could have:
+*/
+import { cube, foo, graph } from "./my-module.js";
+
+graph.options = {
+  color: "blue",
+  thickness: "3px",
+};
+
+graph.draw();
+console.log(cube(3)); // 27
+console.log(foo); // 4.555806215962888
+/*
+It is important to note the following:
+* You need to include this script in your HTML with a <script> element of type="module",
+so that it gets recognized as a module and dealt with appropriately.
+* You can't run JS modules via a file:// URL — you'll get CORS errors.
+You need to run it via an HTTP server.
+
+Using the default export
+
+If we want to export a single value or to have a fallback value for your module, you could use a default export:
+*/
+// module "my-module.js"
+
+export default function cube(x) {
+    return x * x * x;
+}
+/*
+Then, in another script, it is straightforward to import the default export:
+*/
+import cube from "./my-module.js";
+console.log(cube(3)); // 27
+/*
+Using export from
+
+Let's take an example where we have the following hierarchy:
+* childModule1.js: exporting myFunction and myVariable
+* childModule2.js: exporting MyClass
+* parentModule.js: acting as an aggregator (and doing nothing else)
+* top level module: consuming the exports of parentModule.js
+
+This is what it would look like using code snippets:
+*/
+// In childModule1.js
+function myFunction() {
+  console.log("Hello!");
+}
+const myVariable = 1;
+export { myFunction, myVariable };
+// In childModule2.js
+class MyClass {
+    constructor(x) {
+        this.x = x;
+    }
+}
+
+export { MyClass };
+// In parentModule.js
+// Only aggregating the exports from childModule1 and childModule2
+// to re-export them
+export { myFunction, myVariable } from "childModule1.js";
+export { MyClass } from "childModule2.js";
+// In top-level module
+// We can consume the exports from a single module since parentModule
+// "collected"/"bundled" them in a single source
+import { myFunction, myVariable, MyClass } from "parentModule.js";
