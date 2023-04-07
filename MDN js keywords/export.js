@@ -129,7 +129,7 @@ but the default export can be imported with any name. For example:
 const k = 12;
 export default k;
 // some other file
-import m from "./test"; // note that we have the freedom to use import m instead of import k, because k was default export
+import m from "../0. Quick Start/test"; // note that we have the freedom to use import m instead of import k, because k was default export
 console.log(m); // 12
 /*
 You can also rename named exports to avoid naming conflicts:
@@ -173,16 +173,16 @@ export const a = 1;
 export const a = 3;
 
 // -- barrel.js --
-export * from "./mod1.js";
-export * from "./mod2.js";
+export * from "./mod1.js.js";
+export * from "./mod2.js.js";
 
 // -- main.js --
-import * as ns from "./barrel.js";
+import * as ns from "./barrel.js.js";
 console.log(ns.a); // undefined
 /*
 Attempting to import the duplicate name directly will throw an error.
 */
-import { a } from "./barrel.js";
+import { a } from "./barrel.js.js";
 // SyntaxError: The requested module './barrel.js' contains conflicting star exports for name 'a'
 /*
 The following is syntactically invalid despite its import equivalent:
@@ -229,7 +229,7 @@ export { cube, foo, graph };
 /*
 Then in the top-level module included in your HTML page, we could have:
 */
-import { cube, foo, graph } from "./my-module.js";
+import { cube, foo, graph } from "./my-module.js.js";
 
 graph.options = {
   color: "blue",
@@ -258,7 +258,7 @@ export default function cube(x) {
 /*
 Then, in another script, it is straightforward to import the default export:
 */
-import cube from "./my-module.js";
+import cube from "./my-module.js.js";
 console.log(cube(3)); // 27
 /*
 Using export from
