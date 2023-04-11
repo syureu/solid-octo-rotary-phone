@@ -1,11 +1,9 @@
-{
-  "eslintConfig": {
-    "extends": ["airbnb", "plugin:prettier/recommended"],
-    "rules": {
-      "object-curly-newline": 0
-    },
-    "env": {
-      "browser": true
-    }
+"eslintConfig": {
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "rules": {
+    "object-curly-newline": 0
+  },
+  "env": {
+    "browser": true
   }
 }
