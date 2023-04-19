@@ -61,6 +61,7 @@ export default function Game() {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  const [movesAsending, setMovesAsending] = useState(true);
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -73,6 +74,9 @@ export default function Game() {
   }
 
   const moves = history.map((squares, move) => {
+    if (!movesAsending) {
+      move = history.length - (move + 1);
+    }
     let description;
     if (currentMove === move) {
       description = "You are at move #" + move;
@@ -88,6 +92,10 @@ export default function Game() {
     );
   });
 
+  const sortingButtonMessage = movesAsending
+    ? "show Descending"
+    : "show Ascending";
+
   return (
     <div className="game">
       <div className="game-board">
@@ -95,6 +103,15 @@ export default function Game() {
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
+      </div>
+      <div>
+        <button
+          onClick={() => {
+            setMovesAsending(!movesAsending);
+          }}
+        >
+          {sortingButtonMessage}
+        </button>
       </div>
     </div>
   );
