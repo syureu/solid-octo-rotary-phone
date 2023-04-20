@@ -1,14 +1,18 @@
 import { useState } from "react";
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, isWinNumber }) {
+  let winStyle = {};
+  if (isWinNumber()) {
+    winStyle = { border: "3px solid #999" };
+  }
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className="square" onClick={onSquareClick} style={winStyle}>
       {value}
     </button>
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function Board({ xIsNext, squares, onPlay, isDraw }) {
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -22,10 +26,12 @@ function Board({ xIsNext, squares, onPlay }) {
     onPlay(nextSquares);
   }
 
-  const winner = calculateWinner(squares);
+  const winnerInfo = calculateWinner(squares);
   let status;
-  if (winner) {
-    status = "Winner: " + winner;
+  if (winnerInfo) {
+    status = "Winner: " + winnerInfo.winner;
+  } else if (isDraw) {
+    status = "Draw";
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
@@ -39,6 +45,13 @@ function Board({ xIsNext, squares, onPlay }) {
           <Square
             value={squares[i * 3 + j]}
             onSquareClick={() => handleClick(i * 3 + j)}
+            isWinNumber={() => {
+              if (winnerInfo) {
+                return winnerInfo.winNumber.includes(i * 3 + j);
+              } else {
+                return false;
+              }
+            }}
           />
         );
       }
@@ -99,7 +112,12 @@ export default function Game() {
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board
+          xIsNext={xIsNext}
+          squares={currentSquares}
+          onPlay={handlePlay}
+          isDraw={currentMove === 9}
+        />
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
@@ -131,7 +149,10 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return {
+        winNumber: [a, b, c],
+        winner: squares[a],
+      };
     }
   }
   return null;
