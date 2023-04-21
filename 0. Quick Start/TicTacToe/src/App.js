@@ -86,15 +86,36 @@ export default function Game() {
     setCurrentMove(nextMove);
   }
 
+  function locationFinderAtMove(move) {
+    for (let i in history[move]) {
+      if (history[move][i] != history[move - 1][i]) {
+        return findIJByIndex(i);
+      }
+    }
+  }
+
+  function findIJByIndex(index) {
+    return {
+      i: parseInt(index / 3),
+      j: index % 3,
+    };
+  }
+
   const moves = history.map((squares, move) => {
     if (!movesAsending) {
       move = history.length - (move + 1);
     }
     let description;
     if (currentMove === move) {
-      description = "You are at move #" + move;
+      if (move === 0) {
+        description = `You are at move #${move}`;
+      } else {
+        let { i, j } = locationFinderAtMove(move);
+        description = `You are at move #${move} (row : ${i}, col : ${j})`;
+      }
     } else if (move > 0) {
-      description = "Go to move #" + move;
+      let { i, j } = locationFinderAtMove(move);
+      description = `Go to move #${move} (row : ${i}, col : ${j})`;
     } else {
       description = "Go to game start";
     }
