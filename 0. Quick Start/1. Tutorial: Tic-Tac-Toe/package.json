@@ -7,7 +7,7 @@
   "devDependencies": {
     "react-scripts": "^5.0.1"
   },
-  "name": "TicTacToe",
+  "name": "1. Tutorial: Tic-Tac-Toe",
   "description": null,
   "version": "0.0.0",
   "scripts": {
