@@ -6,17 +6,14 @@ const person = {
     backgroundColor: "black",
     color: "pink",
   },
+  imageSource: "https://i.imgur.com/7vQD0fPs.jpg",
 };
 
 export default function TodoList() {
   return (
     <div style={person.theme}>
       <h1>{person.name}'s Todos</h1>
-      <img
-        className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
-        alt="Gregorio Y. Zara"
-      />
+      <img className="avatar" src={person.imageSource} alt="Gregorio Y. Zara" />
       <ul>
         <li>Improve the videophone</li>
         <li>Prepare aeronautics lectures</li>
