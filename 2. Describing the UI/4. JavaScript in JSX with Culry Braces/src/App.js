@@ -4,8 +4,8 @@ export default function TodoList() {
   return (
     <ul
       style={{
-        backgroundColor: "black",
-        color: "pink",
+        backgroundColor: "red",
+        color: "white",
       }}
     >
       <li>Improve the videophone</li>
