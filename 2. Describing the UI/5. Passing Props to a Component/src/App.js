@@ -1,20 +1,32 @@
 import React from "react";
-import Avatar from "./Avatar.js";
+import { useState, useEffect } from "react";
+import Clock from "./Clock.js";
 
-function Card({ children }) {
-  return <div className="card">{children}</div>;
+function useTime() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
 }
 
-export default function Profile() {
+export default function App() {
+  const time = useTime();
+  const [color, setColor] = useState("lightcoral");
   return (
-    <Card>
-      <Avatar
-        size={100}
-        person={{
-          name: "Katsuko Saruhashi",
-          imageId: "YfeOqp2",
-        }}
-      />
-    </Card>
+    <div>
+      <p>
+        Pick a color:{" "}
+        <select value={color} onChange={(e) => setColor(e.target.value)}>
+          <option value="lightcoral">lightcoral</option>
+          <option value="midnightblue">midnightblue</option>
+          <option value="rebeccapurple">rebeccapurple</option>
+        </select>
+      </p>
+      <Clock color={color} time={time.toLocaleTimeString()} />
+    </div>
   );
 }
