@@ -1,32 +1,64 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import Clock from "./Clock.js";
+import { getImageUrl } from "./utils.js";
 
-function useTime() {
-  const [time, setTime] = useState(() => new Date());
-  useEffect(() => {
-    const id = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
-
-export default function App() {
-  const time = useTime();
-  const [color, setColor] = useState("lightcoral");
+export default function Gallery() {
   return (
     <div>
-      <p>
-        Pick a color:{" "}
-        <select value={color} onChange={(e) => setColor(e.target.value)}>
-          <option value="lightcoral">lightcoral</option>
-          <option value="midnightblue">midnightblue</option>
-          <option value="rebeccapurple">rebeccapurple</option>
-        </select>
-      </p>
-      <Clock color={color} time={time.toLocaleTimeString()} />
+      <h1>Notable Scientists</h1>
+      <Profile
+        profile={{
+          name: "Maria Skłodowska-Curie",
+          imageUrl: "szV5sdG",
+          imageWidth: 70,
+          imageHeight: 70,
+          profession: "physicist and chemist",
+          awardCount: 4,
+          awardContent:
+            "(Nobel Prize in Physics, Nobel Prize in Chemistry, Davy Medal, Matteucci Medal)",
+          discovered: "polonium (element)",
+        }}
+      />
+      <Profile
+        profile={{
+          name: "Katsuko Saruhashi",
+          imageUrl: "YfeOqp2",
+          imageWidth: 70,
+          imageHeight: 70,
+          profession: "geochemist",
+          awardCount: 2,
+          awardContent: "(Miyake Prize for geochemistry, Tanaka Prize)",
+          discovered: "a method for measuring carbon dioxide in seawater",
+        }}
+      />
     </div>
+  );
+}
+
+function Profile({ profile }) {
+  return (
+    <section className="profile">
+      <h2>{profile.name}</h2>
+      <img
+        className="avatar"
+        src={getImageUrl(profile.imageUrl)}
+        alt={profile.name}
+        width={profile.imageWidth}
+        height={profile.imageHeight}
+      />
+      <ul>
+        <li>
+          <b>Profession: </b>
+          {profile.profession}
+        </li>
+        <li>
+          <b>Awards: {profile.awardCount} </b>
+          {profile.awardContent}
+        </li>
+        <li>
+          <b>Discovered: </b>
+          {profile.discovered}
+        </li>
+      </ul>
+    </section>
   );
 }
