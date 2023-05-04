@@ -1,11 +1,11 @@
 import React from "react";
 
 function Item({ name, isPacked }) {
-  let itemContent = name;
-  if (isPacked) {
-    itemContent = <del>{name + " ✔"}</del>;
-  }
-  return <li className="item">{itemContent}</li>;
+  return (
+    <li className="item">
+      {name} {isPacked && "✔"}
+    </li>
+  );
 }
 
 export default function PackingList() {
