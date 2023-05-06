@@ -1,16 +1,30 @@
 import React from "react";
 
 function Drink({ name }) {
+  let partOfPlant, caffeineContent, age;
+  if (name === "tea") {
+    ({ partOfPlant, caffeineContent, age } = {
+      partOfPlant: "leaf",
+      caffeineContent: "15–70 mg/cup",
+      age: "4,000+ years",
+    });
+  } else {
+    ({ partOfPlant, caffeineContent, age } = {
+      partOfPlant: "bean",
+      caffeineContent: "80–185 mg/cup",
+      age: "1,000+ years",
+    });
+  }
   return (
     <section>
       <h1>{name}</h1>
       <dl>
         <dt>Part of plant</dt>
-        <dd>{name === "tea" ? "leaf" : "bean"}</dd>
+        <dd>{partOfPlant}</dd>
         <dt>Caffeine content</dt>
-        <dd>{name === "tea" ? "15–70 mg/cup" : "80–185 mg/cup"}</dd>
+        <dd>{caffeineContent}</dd>
         <dt>Age</dt>
-        <dd>{name === "tea" ? "4,000+ years" : "1,000+ years"}</dd>
+        <dd>{age}</dd>
       </dl>
     </section>
   );
