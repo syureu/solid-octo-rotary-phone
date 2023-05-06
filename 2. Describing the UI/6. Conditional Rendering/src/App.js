@@ -1,7 +1,11 @@
 import React from "react";
 
 function Item({ name, importance }) {
-  return <li className="item">{name}</li>;
+  return (
+    <li className="item">
+      {name} {importance !== 0 && <i>(Importance: {importance})</i>}
+    </li>
+  );
 }
 
 export default function PackingList() {
