@@ -1,30 +1,19 @@
 import React from "react";
-import { recipes } from "./data.js";
 
-export default function RecipeList() {
+const poem = {
+  lines: [
+    "I write, erase, rewrite",
+    "Erase again, and then",
+    "A poppy blooms.",
+  ],
+};
+
+export default function Poem() {
   return (
-    <div>
-      <h1>Recipes</h1>
-      {recipes.map((recipe) => (
-        <Recipe
-          key={recipe.id}
-          name={recipe.name}
-          ingredients={recipe.ingredients}
-        />
+    <article>
+      {poem.lines.map((line, index) => (
+        <p key={index}>{line}</p>
       ))}
-    </div>
-  );
-}
-
-export function Recipe({ name, ingredients }) {
-  return (
-    <div>
-      <h2>{name}</h2>
-      <ul>
-        {ingredients.map((ingredient) => (
-          <li key={ingredient}>{ingredient}</li>
-        ))}
-      </ul>
-    </div>
+    </article>
   );
 }
