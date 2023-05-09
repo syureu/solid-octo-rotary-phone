@@ -1,3 +1,4 @@
+import React from "react";
 import { recipes } from "./data.js";
 
 export default function RecipeList() {
@@ -5,15 +6,25 @@ export default function RecipeList() {
     <div>
       <h1>Recipes</h1>
       {recipes.map((recipe) => (
-        <div key={recipe.id}>
-          <h2>{recipe.name}</h2>
-          <ul>
-            {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient}>{ingredient}</li>
-            ))}
-          </ul>
-        </div>
+        <Recipe
+          key={recipe.id}
+          name={recipe.name}
+          ingredients={recipe.ingredients}
+        />
       ))}
+    </div>
+  );
+}
+
+export function Recipe({ name, ingredients }) {
+  return (
+    <div>
+      <h2>{name}</h2>
+      <ul>
+        {ingredients.map((ingredient) => (
+          <li key={ingredient}>{ingredient}</li>
+        ))}
+      </ul>
     </div>
   );
 }
