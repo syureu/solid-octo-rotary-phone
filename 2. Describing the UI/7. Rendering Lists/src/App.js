@@ -3,7 +3,7 @@ import { people } from "./data.js";
 import { getImageUrl } from "./utils.js";
 
 export default function List() {
-  const listItems = people.map((person) => (
+  const listMapFunction = (person) => (
     <li key={person.id}>
       <img src={getImageUrl(person)} alt={person.name} />
       <p>
@@ -12,11 +12,20 @@ export default function List() {
         known for {person.accomplishment}
       </p>
     </li>
-  ));
+  );
+  const chemists = people
+    .filter((person) => person.profession === "chemist")
+    .map(listMapFunction);
+  const everyoneElse = people
+    .filter((person) => person.profession !== "chemist")
+    .map(listMapFunction);
   return (
     <article>
       <h1>Scientists</h1>
-      <ul>{listItems}</ul>
+      <h2>Chemists</h2>
+      <ul>{chemists}</ul>
+      <h2>Else</h2>
+      <ul>{everyoneElse}</ul>
     </article>
   );
 }
