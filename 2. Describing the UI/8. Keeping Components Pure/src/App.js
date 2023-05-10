@@ -1,13 +1,20 @@
 import React from "react";
 
-function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+import { useState, useEffect } from "react";
+import Clock from "./Clock.js";
+
+function useTime() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
 }
 
-export default function TeaGathering() {
-  let cups = [];
-  for (let i = 1; i <= 12; i++) {
-    cups.push(<Cup key={i} guest={i} />);
-  }
-  return cups;
+export default function App() {
+  const time = useTime();
+  return <Clock time={time} />;
 }
