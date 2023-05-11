@@ -1,14 +1,17 @@
 import React from "react";
 
 export default function StoryTray({ stories }) {
-  stories.push({
-    id: "create",
-    label: "Create Story",
-  });
+  let newArray = [
+    ...stories,
+    {
+      id: "create",
+      label: "Create Story",
+    },
+  ];
 
   return (
     <ul>
-      {stories.map((story) => (
+      {newArray.map((story) => (
         <li key={story.id}>{story.label}</li>
       ))}
     </ul>
