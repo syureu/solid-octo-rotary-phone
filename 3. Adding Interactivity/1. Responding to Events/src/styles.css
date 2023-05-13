@@ -46,4 +46,8 @@ ul {
   padding-left: 20px;
 }
 
-button { margin-right: 10px; }
+.Toolbar {
+  background: #aaa;
+  padding: 5px;
+}
+button { margin: 5px; }

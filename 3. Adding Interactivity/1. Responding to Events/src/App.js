@@ -1,23 +1,15 @@
 import React from "react";
 
-export default function App() {
+export default function Toolbar() {
   return (
-    <Toolbar
-      onPlayMovie={() => alert("Playing!")}
-      onUploadImage={() => alert("Uploading!")}
-    />
-  );
-}
-
-function Toolbar({ onPlayMovie, onUploadImage }) {
-  return (
-    <div>
-      <Button onClick={onPlayMovie}>Play Movie</Button>
-      <Button onClick={onUploadImage}>Upload Image</Button>
+    <div
+      className="Toolbar"
+      onClick={() => {
+        alert("You clicked on the toolbar!");
+      }}
+    >
+      <button onClick={() => alert("Playing!")}>Play Movie</button>
+      <button onClick={() => alert("Uploading!")}>Upload Image</button>
     </div>
   );
-}
-
-function Button({ onClick, children }) {
-  return <button onClick={onClick}>{children}</button>;
 }
