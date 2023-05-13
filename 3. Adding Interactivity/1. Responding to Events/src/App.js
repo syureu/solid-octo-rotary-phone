@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function Button() {
-  return <button>I don't do anything</button>;
+  function handleClick() {
+    alert("You clicked me!");
+  }
+
+  return <button onClick={handleClick}>Click me</button>;
 }
