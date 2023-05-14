@@ -1,5 +1,18 @@
 import React from "react";
 
+function Button({ onClick, children }) {
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function Toolbar() {
   return (
     <div
@@ -8,8 +21,8 @@ export default function Toolbar() {
         alert("You clicked on the toolbar!");
       }}
     >
-      <button onClick={() => alert("Playing!")}>Play Movie</button>
-      <button onClick={() => alert("Uploading!")}>Upload Image</button>
+      <Button onClick={() => alert("Playing!")}>Play Movie</Button>
+      <Button onClick={() => alert("Uploading!")}>Upload Image</Button>
     </div>
   );
 }
