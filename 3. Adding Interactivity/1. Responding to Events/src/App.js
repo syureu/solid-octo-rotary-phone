@@ -10,5 +10,5 @@ export default function LightSwitch() {
     }
   }
 
-  return <button onClick={handleClick()}>Toggle the lights</button>;
+  return <button onClick={handleClick}>Toggle the lights</button>;
 }
