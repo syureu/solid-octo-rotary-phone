@@ -7,7 +7,17 @@ export default function Gallery() {
   const [index, setIndex] = useState(0);
   const [showMore, setShowMore] = useState(false);
 
+  function handlePreviousClick() {
+    if (index === 0) {
+      return;
+    }
+    setIndex(index - 1);
+  }
+
   function handleNextClick() {
+    if (index === sculptureList.length - 1) {
+      return;
+    }
     setIndex(index + 1);
   }
 
@@ -18,6 +28,7 @@ export default function Gallery() {
   let sculpture = sculptureList[index];
   return (
     <React.Fragment>
+      <button onClick={handlePreviousClick}>Previous</button>
       <button onClick={handleNextClick}>Next</button>
       <h2>
         <i>{sculpture.name} </i>
