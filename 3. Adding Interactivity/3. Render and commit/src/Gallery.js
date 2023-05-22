@@ -1,6 +1,17 @@
 import React from "react";
 
-export default function Image() {
+export default function Gallery() {
+  return (
+    <section>
+      <h1>Inspiring Sculptures</h1>
+      <Image />
+      <Image />
+      <Image />
+    </section>
+  );
+}
+
+function Image() {
   return (
     <img
       src="https://i.imgur.com/ZF6s192.jpg"

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { StrictMode } from "react";
 
-import Image from "./Image.js";
+import Gallery from "./Gallery.js";
 import { createRoot } from "react-dom/client";
 
 const root = createRoot(document.getElementById("root"));
-root.render(<Image />);
+root.render(<Gallery />);
