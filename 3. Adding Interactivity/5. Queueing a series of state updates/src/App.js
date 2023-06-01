@@ -8,12 +8,11 @@ export default function Counter() {
       <h1>{number}</h1>
       <button
         onClick={() => {
-          setNumber((n) => n + 1);
-          setNumber((n) => n + 1);
+          setNumber(number + 5);
           setNumber((n) => n + 1);
         }}
       >
-        +3
+        Increase the number
       </button>
     </React.Fragment>
   );
