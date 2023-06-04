@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 
-export default function Counter() {
-  const [number, setNumber] = useState(0);
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(pending + 1);
+    await delay(3000);
+    setPending(pending - 1);
+    setCompleted(completed + 1);
+  }
 
   return (
-    <React.Fragment>
-      <h1>{number}</h1>
-      <button
-        onClick={() => {
-          setNumber(number + 5);
-          setNumber((n) => n + 1);
-          setNumber(42);
-        }}
-      >
-        Increase the number
-      </button>
-    </React.Fragment>
+    <>
+      <h3>Pending: {pending}</h3>
+      <h3>Completed: {completed}</h3>
+      <button onClick={handleClick}>Buy</button>
+    </>
   );
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
