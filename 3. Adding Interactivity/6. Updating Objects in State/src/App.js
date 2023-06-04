@@ -9,8 +9,10 @@ export default function MovingDot() {
   return (
     <div
       onPointerMove={(e) => {
-        position.x = e.clientX;
-        position.y = e.clientY;
+        setPosition({
+          x: e.clientX,
+          y: e.clientY,
+        });
       }}
       style={{
         position: "relative",
