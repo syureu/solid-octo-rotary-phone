@@ -16,8 +16,13 @@ export default function Canvas() {
   });
 
   function handleMove(dx, dy) {
-    shape.position.x += dx;
-    shape.position.y += dy;
+    setShape({
+      ...shape,
+      position: {
+        x: shape.position.x + dx,
+        y: shape.position.y + dy,
+      },
+    });
   }
 
   function handleColorChange(e) {
@@ -28,7 +33,7 @@ export default function Canvas() {
   }
 
   return (
-    <>
+    <React.Fragment>
       <select value={shape.color} onChange={handleColorChange}>
         <option value="orange">orange</option>
         <option value="lightpink">lightpink</option>
@@ -38,6 +43,6 @@ export default function Canvas() {
       <Box color={shape.color} position={shape.position} onMove={handleMove}>
         Drag me!
       </Box>
-    </>
+    </React.Fragment>
   );
 }
