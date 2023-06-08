@@ -10,15 +10,24 @@ export default function Form() {
   });
 
   function handleFirstNameChange(e) {
-    person.firstName = e.target.value;
+    setPerson({
+      ...person,
+      firstName: e.target.value,
+    });
   }
 
   function handleLastNameChange(e) {
-    person.lastName = e.target.value;
+    setPerson({
+      ...person,
+      lastName: e.target.value,
+    });
   }
 
   function handleEmailChange(e) {
-    person.email = e.target.value;
+    setPerson({
+      ...person,
+      email: e.target.value,
+    });
   }
 
   return (
