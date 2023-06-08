@@ -1,8 +1,10 @@
 {
   "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "^5.0.0"
+    "immer": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-scripts": "latest",
+    "use-immer": "latest"
   },
   "main": "/index.js",
   "devDependencies": {
