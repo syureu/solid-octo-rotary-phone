@@ -14,7 +14,7 @@ export default function List() {
       <input value={name} onChange={(e) => setName(e.target.value)} />
       <button
         onClick={() => {
-          setArtists([...artists, { id: nextId++, name: name }]);
+          setArtists([{ id: nextId++, name: name }, ...artists]);
         }}
       >
         Add
