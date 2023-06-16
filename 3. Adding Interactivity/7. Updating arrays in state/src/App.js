@@ -23,7 +23,14 @@ const initialProducts = [
 export default function ShoppingCart() {
   const [products, setProducts] = useState(initialProducts);
 
-  function handleIncreaseClick(productId) {}
+  function handleIncreaseClick(productId) {
+    let newProducts = { ...products };
+    newProducts[productId] = {
+      ...products[productId],
+      count: products[productId].count + 1,
+    };
+    setProducts(Object.values(newProducts));
+  }
 
   return (
     <ul>
