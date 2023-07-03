@@ -46,28 +46,4 @@ ul {
   padding-left: 20px;
 }
 
-body { margin: 0; padding: 0; height: 250px; }
-
-.background {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #eee;
-}
-
-.background--active {
-  background: #a6b5ff;
-}
-
-.picture {
-  width: 200px;
-  height: 200px;
-  border-radius: 10px;
-  border: 5px solid transparent;
-}
-
-.picture--active {
-  border: 5px solid #a6b5ff;
-}
+label { display: block; margin-bottom: 20px; }
