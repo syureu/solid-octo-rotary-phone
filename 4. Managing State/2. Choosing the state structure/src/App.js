@@ -5,14 +5,17 @@ import { letters } from "./data.js";
 import Letter from "./Letter.js";
 
 export default function MailClient() {
-  const [selectedId, setSelectedId] = useState(null);
-
-  // TODO: allow multiple selection
-  const selectedCount = 1;
+  const [selectedIds, setSelectedIds] = useState(new Set());
 
   function handleToggle(toggledId) {
     // TODO: allow multiple selection
-    setSelectedId(toggledId);
+    let newSet = new Set(selectedIds);
+    if (selectedIds.has(toggledId)) {
+      newSet.delete(toggledId);
+    } else {
+      newSet.add(toggledId);
+    }
+    setSelectedIds(newSet);
   }
 
   return (
@@ -25,14 +28,14 @@ export default function MailClient() {
             letter={letter}
             isSelected={
               // TODO: allow multiple selection
-              letter.id === selectedId
+              selectedIds.has(letter.id)
             }
             onToggle={handleToggle}
           />
         ))}
         <hr />
         <p>
-          <b>You selected {selectedCount} letters</b>
+          <b>You selected {selectedIds.size} letters</b>
         </p>
       </ul>
     </React.Fragment>
