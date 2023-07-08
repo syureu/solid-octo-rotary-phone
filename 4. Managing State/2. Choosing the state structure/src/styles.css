@@ -46,6 +46,7 @@ ul {
   padding-left: 20px;
 }
 
-button { margin: 5px; }
+input { margin: 5px; }
 li { border-radius: 5px; }
-.highlighted { background: #d2eaff; }
+label { width: 100%; padding: 5px; display: inline-block; }
+.selected { background: #d2eaff; }
