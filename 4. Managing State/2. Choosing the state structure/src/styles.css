@@ -47,5 +47,5 @@ ul {
 }
 
 button { margin: 5px; }
-li { list-style-type: none; }
-ul, li { margin: 0; padding: 0; }
+li { border-radius: 5px; }
+.highlighted { background: #d2eaff; }
