@@ -1,73 +1,33 @@
 import React from "react";
 
-import { useState } from "react";
-import { initialTravelPlan } from "./places.js";
+import { useState, useEffect } from "react";
+import Clock from "./Clock.js";
 
-export default function TravelPlan() {
-  const [plan, setPlan] = useState(initialTravelPlan);
-
-  function handleComplete(parentId, childId) {
-    const parent = plan[parentId];
-    // Create a new version of the parent place
-    // that doesn't include this child ID.
-    const nextParent = {
-      ...parent,
-      childIds: parent.childIds.filter((id) => id !== childId),
-    };
-    // Update the root state object...
-    setPlan({
-      ...plan,
-      // ...so that it has the updated parent.
-      [parentId]: nextParent,
-    });
-  }
-
-  const root = plan[0];
-  const planetIds = root.childIds;
-  return (
-    <React.Fragment>
-      <h2>Places to visit</h2>
-      <ol>
-        {planetIds.map((id) => (
-          <PlaceTree
-            key={id}
-            id={id}
-            parentId={0}
-            placesById={plan}
-            onComplete={handleComplete}
-          />
-        ))}
-      </ol>
-    </React.Fragment>
-  );
+function useTime() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
 }
 
-function PlaceTree({ id, parentId, placesById, onComplete }) {
-  const place = placesById[id];
-  const childIds = place.childIds;
+export default function App() {
+  const time = useTime();
+  const [color, setColor] = useState("lightcoral");
   return (
-    <li>
-      {place.title}
-      <button
-        onClick={() => {
-          onComplete(parentId, id);
-        }}
-      >
-        Complete
-      </button>
-      {childIds.length > 0 && (
-        <ol>
-          {childIds.map((childId) => (
-            <PlaceTree
-              key={childId}
-              id={childId}
-              parentId={id}
-              placesById={placesById}
-              onComplete={onComplete}
-            />
-          ))}
-        </ol>
-      )}
-    </li>
+    <div>
+      <p>
+        Pick a color:{" "}
+        <select value={color} onChange={(e) => setColor(e.target.value)}>
+          <option value="lightcoral">lightcoral</option>
+          <option value="midnightblue">midnightblue</option>
+          <option value="rebeccapurple">rebeccapurple</option>
+        </select>
+      </p>
+      <Clock color={color} time={time.toLocaleTimeString()} />
+    </div>
   );
 }
