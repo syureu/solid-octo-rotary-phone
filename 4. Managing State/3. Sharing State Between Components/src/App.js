@@ -3,25 +3,26 @@ import React, { useState } from "react";
 import { foods, filterItems } from "./data.js";
 
 export default function FilterableList() {
-  return (
-    <React.Fragment>
-      <SearchBar />
-      <hr />
-      <List items={foods} />
-    </React.Fragment>
-  );
-}
-
-function SearchBar() {
-  const [query, setQuery] = useState("");
+  let [query, setQuery] = useState("");
+  let filteredFoods = filterItems(foods, query);
 
   function handleChange(e) {
     setQuery(e.target.value);
   }
 
   return (
+    <React.Fragment>
+      <SearchBar query={query} onChange={handleChange} />
+      <hr />
+      <List items={filteredFoods} />
+    </React.Fragment>
+  );
+}
+
+function SearchBar({ query, onChange }) {
+  return (
     <label>
-      Search: <input value={query} onChange={handleChange} />
+      Search: <input value={query} onChange={onChange} />
     </label>
   );
 }
